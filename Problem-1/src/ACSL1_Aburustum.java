@@ -13,14 +13,12 @@ public class ACSL1_Aburustum
         boolean running;
         boolean p1Turn = true;
         char curCard;
-        String winner;
 
         System.out.println("Please input the starting hands, COMMA AND SPACE DELIMITED. For example (without the tick marks): '8, 9, Q, 6, 7, K, A, 5, 9, 8'");
         String input = reader.nextLine().toUpperCase();
         char[] hand1, hand2;
         final char[] originalHand1 = parseInput(input.substring(0, input.length()/2));
         final char[] originalHand2 = parseInput(input.substring(input.length()/2));
-
 
         System.out.println("Please input your first game, beginning with the current point total and " +
                 "followed by the cards in the order they would be drawn. COMMA AND SPACE DELIMITED as before.");
