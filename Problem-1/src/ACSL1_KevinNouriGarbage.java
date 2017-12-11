@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.Scanner;
 
 
-public class ACSL1_KevinNouri {
+public class ACSL1_KevinNouriGarbage {
 	
 	static ArrayList<Integer> defaultPlayer1hand = new ArrayList<Integer>();
 	static ArrayList<Integer> defaultPlayer2hand = new ArrayList<Integer>();
