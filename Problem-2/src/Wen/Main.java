@@ -1,5 +1,4 @@
 package Wen;
-
 import java.text.ParseException;
 import java.util.Scanner;
 
@@ -186,11 +185,11 @@ public class Main {
 
         String asd = Character.toString(whatAmIMissing(input));
 
-        for (int i = 0; i < input.length(); i++) {
+        for (int i = 0; i <= input.length(); i++) {
             try {
-                String testme = input.substring(0, i + 1).concat(asd).concat(input.substring(i + 1, input.length()));
+                String testme = input.substring(0, i).concat(asd).concat(input.substring(i , input.length()));
                 Parser.realistParser(testme);
-                System.out.print(i + 2);
+                System.out.print(i + 1);
                 System.out.print(", ");
             } catch (Parser.MeParseException e) {
             }

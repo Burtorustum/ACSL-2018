@@ -1,5 +1,4 @@
 package Wen;
-
 abstract class Token {
 
     private Token() {

@@ -1,9 +1,6 @@
 package Wen;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static Wen.Token.*;
 
 public class Parser {
 
@@ -50,11 +47,11 @@ public class Parser {
             } else if (merp == '{') {
                 output.add(new Token.Sym(Symbol.BRACEOpen));
             } else if (merp == '}') {
-                output.add(new Sym(Symbol.BRACEClose));
+                output.add(new Token.Sym(Symbol.BRACEClose));
             } else if (merp == '[') {
-                output.add(new Sym(Symbol.SQUAROpen));
+                output.add(new Token.Sym(Symbol.SQUAROpen));
             } else if (merp == ']') {
-                output.add(new Sym(Symbol.SQUARClose));
+                output.add(new Token.Sym(Symbol.SQUARClose));
             } else {
                 throw new MeParseException(null, "tilt" + Integer.toString(i) + "--" + input.charAt(i));
             }
@@ -97,21 +94,21 @@ public class Parser {
         int boundUpper = input.size();
         Token first = input.get(boundLower);
         Token last = input.get(boundUpper - 1);
-        if ((isBRACEOpen(first) && isBRACEClose(last)) || (isPARENOpen(first) && isPARENClose(last)) || (isSQUAROpen(first) && isSQUARClose(last))) {
+        if ((Token.isBRACEOpen(first) && Token.isBRACEClose(last)) || (Token.isPARENOpen(first) && Token.isPARENClose(last)) || (Token.isSQUAROpen(first) && Token.isSQUARClose(last))) {
             boundLower++;
             boundUpper--;
         }
         first = input.get(boundLower);
         last = input.get(boundUpper - 1);
 
-        if ((isBRACEOpen(first) && isBRACEClose(last)) || (isPARENOpen(first) && isPARENClose(last)) || (isSQUAROpen(first) && isSQUARClose(last))) {
+        if ((Token.isBRACEOpen(first) && Token.isBRACEClose(last)) || (Token.isPARENOpen(first) && Token.isPARENClose(last)) || (Token.isSQUAROpen(first) && Token.isSQUARClose(last))) {
             boundLower++;
             boundUpper--;
         }
         first = input.get(boundLower);
         last = input.get(boundUpper - 1);
 
-        if ((isBRACEOpen(first) && isBRACEClose(last)) || (isPARENOpen(first) && isPARENClose(last)) || (isSQUAROpen(first) && isSQUARClose(last))) {
+        if ((Token.isBRACEOpen(first) && Token.isBRACEClose(last)) || (Token.isPARENOpen(first) && Token.isPARENClose(last)) || (Token.isSQUAROpen(first) && Token.isSQUARClose(last))) {
             boundLower++;
             boundUpper--;
         }
@@ -121,22 +118,22 @@ public class Parser {
         boolean inSquar = false;
         for (int i = boundLower; i < boundUpper; i++) {
             Token tempThing = input.get(i);
-            if (isADD(tempThing) && !inBrace && !inParen && !inSquar) {
+            if (Token.isADD(tempThing) && !inBrace && !inParen && !inSquar) {
                 // System.out.println("add");
                 List<Token> left = input.subList(boundLower, i);
                 List<Token> right = input.subList(i + 1, boundUpper);
                 return new Expression.Operator(Operation.ADD, completeParse(left), completeParse(right));
-            } else if (inBrace && isBRACEClose(tempThing)) {
+            } else if (inBrace && Token.isBRACEClose(tempThing)) {
                 inBrace = false;
-            } else if (!inBrace && isBRACEOpen(tempThing)) {
+            } else if (!inBrace && Token.isBRACEOpen(tempThing)) {
                 inBrace = true;
-            } else if (inParen && isPARENClose(tempThing)) {
+            } else if (inParen && Token.isPARENClose(tempThing)) {
                 inParen = false;
-            } else if (!inParen && isPARENOpen(tempThing)) {
+            } else if (!inParen && Token.isPARENOpen(tempThing)) {
                 inParen = true;
-            } else if (inSquar && isSQUARClose(tempThing)) {
+            } else if (inSquar && Token.isSQUARClose(tempThing)) {
                 inSquar = false;
-            } else if (!inBrace && isSQUAROpen(tempThing)) {
+            } else if (!inBrace && Token.isSQUAROpen(tempThing)) {
                 inSquar = true;
             }
         }
@@ -145,22 +142,22 @@ public class Parser {
         inSquar = false;
         for (int i = boundLower; i < boundUpper; i++) {
             Token tempThing = input.get(i);
-            if (isSUB(tempThing) && !inBrace && !inParen && !inSquar) {
+            if (Token.isSUB(tempThing) && !inBrace && !inParen && !inSquar) {
                 // System.out.println("sub");
                 List<Token> left = input.subList(boundLower, i);
                 List<Token> right = input.subList(i + 1, boundUpper);
                 return new Expression.Operator(Operation.SUB, completeParse(left), completeParse(right));
-            } else if (inBrace && isBRACEClose(tempThing)) {
+            } else if (inBrace && Token.isBRACEClose(tempThing)) {
                 inBrace = false;
-            } else if (!inBrace && isBRACEOpen(tempThing)) {
+            } else if (!inBrace && Token.isBRACEOpen(tempThing)) {
                 inBrace = true;
-            } else if (inParen && isPARENClose(tempThing)) {
+            } else if (inParen && Token.isPARENClose(tempThing)) {
                 inParen = false;
-            } else if (!inParen && isPARENOpen(tempThing)) {
+            } else if (!inParen && Token.isPARENOpen(tempThing)) {
                 inParen = true;
-            } else if (inSquar && isSQUARClose(tempThing)) {
+            } else if (inSquar && Token.isSQUARClose(tempThing)) {
                 inSquar = false;
-            } else if (!inBrace && isSQUAROpen(tempThing)) {
+            } else if (!inBrace && Token.isSQUAROpen(tempThing)) {
                 inSquar = true;
             }
         }
@@ -169,22 +166,22 @@ public class Parser {
         inSquar = false;
         for (int i = boundLower; i < boundUpper; i++) {
             Token tempThing = input.get(i);
-            if (isMUL(tempThing) && !inBrace && !inParen && !inSquar) {
+            if (Token.isMUL(tempThing) && !inBrace && !inParen && !inSquar) {
                 //System.out.println("mul");
                 List<Token> left = input.subList(boundLower, i);
                 List<Token> right = input.subList(i + 1, boundUpper);
                 return new Expression.Operator(Operation.MUL, completeParse(left), completeParse(right));
-            } else if (inBrace && isBRACEClose(tempThing)) {
+            } else if (inBrace && Token.isBRACEClose(tempThing)) {
                 inBrace = false;
-            } else if (!inBrace && isBRACEOpen(tempThing)) {
+            } else if (!inBrace && Token.isBRACEOpen(tempThing)) {
                 inBrace = true;
-            } else if (inParen && isPARENClose(tempThing)) {
+            } else if (inParen && Token.isPARENClose(tempThing)) {
                 inParen = false;
-            } else if (!inParen && isPARENOpen(tempThing)) {
+            } else if (!inParen && Token.isPARENOpen(tempThing)) {
                 inParen = true;
-            } else if (inSquar && isSQUARClose(tempThing)) {
+            } else if (inSquar && Token.isSQUARClose(tempThing)) {
                 inSquar = false;
-            } else if (!inBrace && isSQUAROpen(tempThing)) {
+            } else if (!inBrace && Token.isSQUAROpen(tempThing)) {
                 inSquar = true;
             }
         }
@@ -193,22 +190,22 @@ public class Parser {
         inSquar = false;
         for (int i = boundLower; i < boundUpper; i++) {
             Token tempThing = input.get(i);
-            if (isDIV(tempThing) && !inBrace && !inParen && !inSquar) {
+            if (Token.isDIV(tempThing) && !inBrace && !inParen && !inSquar) {
                 // System.out.println("div");
                 List<Token> left = input.subList(boundLower, i);
                 List<Token> right = input.subList(i + 1, boundUpper);
                 return new Expression.Operator(Operation.DIV, completeParse(left), completeParse(right));
-            } else if (inBrace && isBRACEClose(tempThing)) {
+            } else if (inBrace && Token.isBRACEClose(tempThing)) {
                 inBrace = false;
-            } else if (!inBrace && isBRACEOpen(tempThing)) {
+            } else if (!inBrace && Token.isBRACEOpen(tempThing)) {
                 inBrace = true;
-            } else if (inParen && isPARENClose(tempThing)) {
+            } else if (inParen && Token.isPARENClose(tempThing)) {
                 inParen = false;
-            } else if (!inParen && isPARENOpen(tempThing)) {
+            } else if (!inParen && Token.isPARENOpen(tempThing)) {
                 inParen = true;
-            } else if (inSquar && isSQUARClose(tempThing)) {
+            } else if (inSquar && Token.isSQUARClose(tempThing)) {
                 inSquar = false;
-            } else if (!inBrace && isSQUAROpen(tempThing)) {
+            } else if (!inBrace && Token.isSQUAROpen(tempThing)) {
                 inSquar = true;
             }
         }
