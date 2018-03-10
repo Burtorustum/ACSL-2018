@@ -158,7 +158,6 @@ public class Main {
                 }
             }
         }
-        if ((hasBracketClos ? 1 : 0) + (hasBracketOpen ? 1 : 0) + (hasParenthClos ? 1 : 0) + (hasParenthOpen ? 1 : 0) + (hasSquarebClos ? 1 : 0) + (hasSquarebOpen ? 1 : 0) == 5) {
             if (!hasBracketClos) {
                 return '}';
             } else if (!hasBracketOpen) {
@@ -176,10 +175,9 @@ public class Main {
                 return '{';
                 //it will probably get it wrong but w/e
             }
-        } else {
-            throw new ParseException("missing proper amount of brackest", 0);
+
         }
-    }
+
 
     public static void testString(String input) throws Parser.MeParseException, ParseException {
 
